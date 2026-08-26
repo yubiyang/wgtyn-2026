@@ -1,0 +1,2550 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="제7회 영남권 기하위상 학회 - The 7th Workshop on Geometry and Topology around Young-Nam" />
+  <title>제7회 영남권 기하위상 학회 | 2026</title>
+
+  <!--
+    ============================================================
+    제7회 영남권 기하위상 학회 홈페이지 - 단일 HTML 파일
+    ============================================================
+
+    [가장 쉬운 수정 방법]
+    1) 이 파일 아래쪽의 <script> 안에서 "EDIT HERE"를 검색하세요.
+    2) conferenceData 객체의 이름 / 일정 / 초록 / 참가자 / 로고 정보를 바꾸면
+       화면이 자동으로 갱신됩니다.
+    3) 이미지 파일을 이 HTML과 같은 폴더에 두고 아래 이름으로 저장하면 됩니다.
+       - hero.jpg
+       - venue-01.jpg
+       - venue-02.jpg
+       - sponsor-01.png, sponsor-02.png ...
+       또는 conferenceData 안의 이미지 경로를 원하는 파일명/URL로 바꾸세요.
+
+    [페이지 구성]
+    Home / Schedule / Abstracts / Participants / Venue
+    실제로는 하나의 HTML 안에서 JavaScript로 화면을 전환하는 SPA 방식입니다.
+
+    [참고]
+    외부 라이브러리 없이 HTML + CSS + JavaScript만 사용합니다.
+    이미지가 없어도 그라디언트/플레이스홀더가 표시되어 레이아웃이 깨지지 않습니다.
+  -->
+
+  <style>
+    :root {
+      --navy-950: #071c2b;
+      --navy-900: #0b273c;
+      --navy-800: #123b55;
+      --navy-700: #1a536f;
+      --teal-600: #2b7c85;
+      --teal-500: #3c9196;
+      --sand-100: #f7f3ea;
+      --sand-50: #fcfaf6;
+      --paper: #ffffff;
+      --ink: #16222c;
+      --muted: #687782;
+      --line: #dce3e7;
+      --soft-line: #edf1f3;
+      --accent: #c79b4b;
+      --accent-soft: #f3e7cd;
+      --shadow-sm: 0 8px 26px rgba(7, 28, 43, 0.08);
+      --shadow-md: 0 18px 48px rgba(7, 28, 43, 0.13);
+      --radius: 18px;
+      --max-width: 1180px;
+      --header-height: 76px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      background: var(--sand-50);
+      font-family: "Pretendard", "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", Arial, sans-serif;
+      line-height: 1.68;
+      word-break: keep-all;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body.menu-open {
+      overflow: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .skip-link {
+      position: fixed;
+      z-index: 9999;
+      top: 10px;
+      left: 10px;
+      transform: translateY(-150%);
+      padding: 10px 14px;
+      color: #fff;
+      background: var(--navy-950);
+      border-radius: 8px;
+      transition: transform 0.2s ease;
+    }
+
+    .skip-link:focus {
+      transform: translateY(0);
+    }
+
+    .site-header {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 1000;
+      height: var(--header-height);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(7, 28, 43, 0.82);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      transition: box-shadow 0.25s ease, background 0.25s ease;
+    }
+
+    .site-header.scrolled {
+      background: rgba(7, 28, 43, 0.96);
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.14);
+    }
+
+    .nav-inner {
+      width: min(calc(100% - 40px), var(--max-width));
+      height: 100%;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      color: #fff;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      flex: 0 0 38px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      border-radius: 50%;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 18px;
+      letter-spacing: -1px;
+    }
+
+    .brand-copy {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .brand-copy strong {
+      overflow: hidden;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .brand-copy span {
+      overflow: hidden;
+      color: rgba(255, 255, 255, 0.62);
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-overflow: ellipsis;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .main-nav {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .nav-link {
+      position: relative;
+      padding: 26px 15px 24px;
+      color: rgba(255, 255, 255, 0.73);
+      border: 0;
+      background: transparent;
+      font-size: 14px;
+      font-weight: 650;
+      letter-spacing: 0.02em;
+      transition: color 0.2s ease;
+    }
+
+    .nav-link::after {
+      position: absolute;
+      right: 15px;
+      bottom: 17px;
+      left: 15px;
+      height: 2px;
+      content: "";
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: center;
+      transition: transform 0.2s ease;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: #fff;
+    }
+
+    .nav-link.active::after {
+      transform: scaleX(1);
+    }
+
+    .menu-toggle {
+      display: none;
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      place-items: center;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 12px;
+      color: #fff;
+      background: transparent;
+    }
+
+    .menu-toggle span,
+    .menu-toggle span::before,
+    .menu-toggle span::after {
+      display: block;
+      width: 19px;
+      height: 1.5px;
+      content: "";
+      background: currentColor;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    .menu-toggle span {
+      position: relative;
+    }
+
+    .menu-toggle span::before {
+      position: absolute;
+      top: -6px;
+    }
+
+    .menu-toggle span::after {
+      position: absolute;
+      top: 6px;
+    }
+
+    .menu-toggle.is-open span {
+      background: transparent;
+    }
+
+    .menu-toggle.is-open span::before {
+      transform: translateY(6px) rotate(45deg);
+    }
+
+    .menu-toggle.is-open span::after {
+      transform: translateY(-6px) rotate(-45deg);
+    }
+
+    .page {
+      display: none;
+      min-height: 100vh;
+      animation: pageIn 0.32s ease both;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    @keyframes pageIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .container {
+      width: min(calc(100% - 40px), var(--max-width));
+      margin: 0 auto;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 760px;
+      display: flex;
+      align-items: stretch;
+      overflow: hidden;
+      color: #fff;
+      background:
+        linear-gradient(98deg, rgba(4, 20, 31, 0.96) 0%, rgba(9, 39, 57, 0.90) 44%, rgba(12, 46, 61, 0.65) 100%),
+        url("hero.jpg") center / cover no-repeat,
+        var(--navy-950);
+    }
+
+    .hero::before {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      content: "";
+      opacity: 0.2;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: linear-gradient(to right, #000 0%, rgba(0,0,0,0.45) 58%, transparent 100%);
+    }
+
+    .hero::after {
+      position: absolute;
+      right: -170px;
+      bottom: -260px;
+      width: 650px;
+      height: 650px;
+      pointer-events: none;
+      content: "";
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 50%;
+      box-shadow:
+        0 0 0 70px rgba(255, 255, 255, 0.035),
+        0 0 0 140px rgba(255, 255, 255, 0.025);
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      width: min(calc(100% - 40px), var(--max-width));
+      margin: 0 auto;
+      padding: calc(var(--header-height) + 98px) 0 88px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      align-items: end;
+    }
+
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 24px;
+      color: #ecdcbf;
+      font-size: 12px;
+      font-weight: 760;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .hero-kicker::before {
+      width: 38px;
+      height: 1px;
+      content: "";
+      background: currentColor;
+    }
+
+    .hero h1 {
+      margin: 0;
+      max-width: 820px;
+      font-family: Georgia, "Times New Roman", "Noto Serif KR", serif;
+      font-size: clamp(42px, 5.4vw, 76px);
+      font-weight: 600;
+      line-height: 1.12;
+      letter-spacing: -0.045em;
+    }
+
+    .hero-title-en {
+      display: block;
+      margin-top: 23px;
+      max-width: 850px;
+      color: rgba(255, 255, 255, 0.76);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(20px, 2vw, 29px);
+      font-weight: 400;
+      line-height: 1.35;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-meta {
+      margin-top: 44px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .meta-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      min-height: 44px;
+      padding: 10px 15px;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 999px;
+      color: rgba(255, 255, 255, 0.9);
+      background: rgba(255, 255, 255, 0.06);
+      font-size: 13px;
+      backdrop-filter: blur(8px);
+    }
+
+    .meta-icon {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 5px rgba(199, 155, 75, 0.11);
+    }
+
+    .hero-side {
+      position: relative;
+      padding: 28px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.07);
+      backdrop-filter: blur(14px);
+    }
+
+    .hero-side-label {
+      margin-bottom: 18px;
+      color: rgba(255, 255, 255, 0.52);
+      font-size: 11px;
+      font-weight: 750;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .hero-side dl {
+      margin: 0;
+    }
+
+    .hero-side-row {
+      padding: 16px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.11);
+    }
+
+    .hero-side-row:first-of-type {
+      padding-top: 0;
+      border-top: 0;
+    }
+
+    .hero-side dt {
+      margin-bottom: 4px;
+      color: rgba(255, 255, 255, 0.55);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .hero-side dd {
+      margin: 0;
+      font-size: 15px;
+      font-weight: 650;
+      line-height: 1.5;
+    }
+
+    .hero-scroll {
+      position: absolute;
+      z-index: 3;
+      bottom: 30px;
+      left: 50%;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: rgba(255,255,255,0.46);
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      transform: translateX(-50%);
+    }
+
+    .hero-scroll::after {
+      width: 44px;
+      height: 1px;
+      content: "";
+      background: currentColor;
+    }
+
+    .section {
+      padding: 88px 0;
+    }
+
+    .section.compact {
+      padding: 68px 0;
+    }
+
+    .section.white {
+      background: var(--paper);
+    }
+
+    .section.deep {
+      color: #fff;
+      background: var(--navy-900);
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 32px;
+      margin-bottom: 36px;
+    }
+
+    .section-eyebrow {
+      margin-bottom: 9px;
+      color: var(--teal-600);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .section.deep .section-eyebrow {
+      color: #b5d7d9;
+    }
+
+    .section-title {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", "Noto Serif KR", serif;
+      font-size: clamp(30px, 3vw, 44px);
+      font-weight: 600;
+      line-height: 1.2;
+      letter-spacing: -0.035em;
+    }
+
+    .section-desc {
+      max-width: 560px;
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .section.deep .section-desc {
+      color: rgba(255, 255, 255, 0.62);
+    }
+
+    .intro-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 64px;
+      align-items: start;
+    }
+
+    .intro-copy p {
+      margin: 0 0 20px;
+      font-size: 17px;
+      line-height: 1.85;
+    }
+
+    .intro-note {
+      padding: 18px 20px;
+      border-left: 3px solid var(--accent);
+      background: var(--accent-soft);
+      color: #5c4a28;
+      font-size: 13px;
+    }
+
+    .quick-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .quick-card {
+      min-height: 144px;
+      padding: 23px;
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      background: var(--paper);
+      box-shadow: 0 5px 18px rgba(7, 28, 43, 0.035);
+    }
+
+    .quick-card-label {
+      margin-bottom: 14px;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 760;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .quick-card strong {
+      display: block;
+      font-family: Georgia, "Times New Roman", "Noto Serif KR", serif;
+      font-size: 19px;
+      line-height: 1.35;
+    }
+
+    .quick-card span {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .people-groups {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .people-column {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .people-card {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .people-card-head {
+      min-height: 94px;
+      padding: 23px 25px;
+      display: flex;
+      align-items: end;
+      background: linear-gradient(135deg, var(--navy-900), var(--navy-700));
+      color: #fff;
+    }
+
+    .people-card-head h3 {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 22px;
+      font-weight: 500;
+    }
+
+    .people-list {
+      margin: 0;
+      padding: 8px 25px 16px;
+      list-style: none;
+    }
+
+    .people-list li {
+      padding: 15px 0;
+      border-top: 1px solid var(--soft-line);
+    }
+
+    .people-list li:first-child {
+      border-top: 0;
+    }
+
+    .person-name {
+      font-weight: 750;
+    }
+
+    .person-affiliation {
+      display: block;
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .organizer-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .organizer-chip {
+      padding: 19px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .organizer-chip strong {
+      display: block;
+      font-size: 14px;
+    }
+
+    .organizer-chip span {
+      display: block;
+      margin-top: 4px;
+      color: rgba(255,255,255,0.56);
+      font-size: 11px;
+    }
+
+    .sponsor-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .sponsor-logo {
+      position: relative;
+      min-height: 112px;
+      padding: 18px;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fff;
+    }
+
+    .sponsor-logo img {
+      max-width: 84%;
+      max-height: 62px;
+      object-fit: contain;
+    }
+
+/* sponsor-01만 조금 크게 */
+.sponsor-logo img[src="sponsor-01.jpg"] {
+  max-width: 106%;
+  max-height: 90px;
+}
+
+/* sponsor-04만 조금 크게 */
+.sponsor-logo img[src="sponsor-04.png"] {
+  max-width: 115%;
+  max-height: 100px;
+}
+
+    .sponsor-fallback {
+      text-align: center;
+      color: #83909a;
+      font-size: 12px;
+    }
+
+    .sponsor-fallback strong {
+      display: block;
+      margin-bottom: 3px;
+      color: var(--navy-700);
+      font-size: 13px;
+    }
+
+    .page-hero {
+      position: relative;
+      padding: calc(var(--header-height) + 76px) 0 76px;
+      overflow: hidden;
+      color: #fff;
+      background:
+        radial-gradient(circle at 82% 30%, rgba(60,145,150,0.24), transparent 30%),
+        linear-gradient(130deg, var(--navy-950), var(--navy-800));
+    }
+
+    .page-hero::after {
+      position: absolute;
+      right: -100px;
+      bottom: -220px;
+      width: 500px;
+      height: 500px;
+      content: "";
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 50%;
+      box-shadow: 0 0 0 60px rgba(255,255,255,0.03), 0 0 0 120px rgba(255,255,255,0.02);
+    }
+
+    .page-hero .container {
+      position: relative;
+      z-index: 2;
+    }
+
+    .page-kicker {
+      margin-bottom: 13px;
+      color: #d7c394;
+      font-size: 11px;
+      font-weight: 750;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .page-hero h2 {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", "Noto Serif KR", serif;
+      font-size: clamp(38px, 5vw, 62px);
+      font-weight: 500;
+      line-height: 1.15;
+      letter-spacing: -0.04em;
+    }
+
+    .page-hero p {
+      max-width: 680px;
+      margin: 17px 0 0;
+      color: rgba(255,255,255,0.63);
+      font-size: 14px;
+    }
+
+    .toolbar {
+      margin-bottom: 26px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .segmented {
+      display: inline-flex;
+      gap: 5px;
+      padding: 5px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fff;
+    }
+
+    .segment-btn {
+      padding: 9px 17px;
+      border: 0;
+      border-radius: 999px;
+      color: var(--muted);
+      background: transparent;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .segment-btn.active {
+      color: #fff;
+      background: var(--navy-800);
+    }
+
+    .small-note {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .schedule-day {
+      display: none;
+    }
+
+    .schedule-day.active {
+      display: block;
+      animation: pageIn 0.24s ease both;
+    }
+
+    .schedule-card {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .schedule-titlebar {
+      padding: 23px 26px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      color: #fff;
+      background: var(--navy-800);
+    }
+
+    .schedule-titlebar strong {
+      font-family: Georgia, "Times New Roman", "Noto Serif KR", serif;
+      font-size: 22px;
+      font-weight: 500;
+    }
+
+    .schedule-titlebar span {
+      color: rgba(255,255,255,0.62);
+      font-size: 12px;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+    }
+
+    .schedule-table {
+      width: 100%;
+      min-width: 760px;
+      border-collapse: collapse;
+    }
+
+    .schedule-table thead th {
+      padding: 14px 17px;
+      color: #6b7983;
+      background: #f6f8f9;
+      border-bottom: 1px solid var(--line);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-align: left;
+      text-transform: uppercase;
+    }
+
+    .schedule-table tbody td {
+      padding: 17px;
+      border-bottom: 1px solid var(--soft-line);
+      vertical-align: top;
+      font-size: 13px;
+    }
+
+    .schedule-table tbody tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .schedule-table tbody tr.break-row td {
+      color: #6d6659;
+      background: #faf6ee;
+    }
+
+    .schedule-table .time {
+      width: 125px;
+      white-space: nowrap;
+      color: var(--navy-800);
+      font-weight: 780;
+    }
+
+    .schedule-table .speaker {
+      width: 190px;
+      font-weight: 700;
+    }
+
+    .schedule-table .speaker small {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 500;
+      line-height: 1.35;
+    }
+
+    .schedule-table .talk-title {
+      min-width: 260px;
+    }
+
+    .type-badge {
+      display: inline-block;
+      margin-top: 6px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: #eaf2f4;
+      color: var(--teal-600);
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .search-row {
+      margin-bottom: 28px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+    }
+
+    .search-input {
+      width: 100%;
+      min-height: 48px;
+      padding: 0 16px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      outline: none;
+      background: #fff;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .search-input:focus {
+      border-color: var(--teal-500);
+      box-shadow: 0 0 0 4px rgba(60,145,150,0.11);
+    }
+
+    .search-count {
+      min-width: 88px;
+      display: grid;
+      place-items: center;
+      color: var(--muted);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fff;
+      font-size: 12px;
+    }
+
+    .abstract-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .abstract-card {
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: 0 6px 20px rgba(7,28,43,0.035);
+    }
+
+    .abstract-toggle {
+      width: 100%;
+      padding: 23px 25px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 20px;
+      align-items: center;
+      border: 0;
+      color: inherit;
+      background: transparent;
+      text-align: left;
+    }
+
+    .abstract-toggle:hover {
+      background: #fbfcfc;
+    }
+
+    .abstract-meta {
+      margin-bottom: 7px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      color: var(--teal-600);
+      font-size: 10px;
+      font-weight: 780;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .abstract-title {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", "Noto Serif KR", serif;
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 1.4;
+      letter-spacing: -0.025em;
+    }
+
+    .abstract-speaker {
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .abstract-arrow {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      color: var(--navy-700);
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .abstract-card.open .abstract-arrow {
+      background: var(--sand-100);
+      transform: rotate(180deg);
+    }
+
+    .abstract-body {
+      display: none;
+      padding: 0 25px 25px;
+      color: #42515b;
+      font-size: 14px;
+    }
+
+    .abstract-card.open .abstract-body {
+      display: block;
+    }
+
+    .abstract-body-inner {
+      padding-top: 20px;
+      border-top: 1px solid var(--soft-line);
+    }
+
+    .abstract-body p {
+      margin: 0 0 12px;
+    }
+
+    .abstract-body p:last-child {
+      margin-bottom: 0;
+    }
+
+    .participants-tools {
+      margin-bottom: 24px;
+      display: grid;
+      grid-template-columns: 1fr 260px;
+      gap: 10px;
+    }
+
+    .filter-select {
+      min-height: 48px;
+      padding: 0 38px 0 14px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      outline: none;
+      background: #fff;
+    }
+
+    .participants-card {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .participants-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .participants-table th,
+    .participants-table td {
+      padding: 15px 20px;
+      border-bottom: 1px solid var(--soft-line);
+      text-align: left;
+    }
+
+    .participants-table th {
+      color: var(--muted);
+      background: #f6f8f9;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .participants-table tbody tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .participants-table tbody tr:hover td {
+      background: #fbfcfc;
+    }
+
+    .participant-no {
+      width: 70px;
+      color: #98a3aa;
+      font-size: 11px;
+    }
+
+    .participant-name {
+      font-weight: 740;
+    }
+
+    .participant-role {
+      color: var(--teal-600);
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .empty-state {
+      padding: 48px 24px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .venue-lead {
+      display: grid;
+      grid-template-columns: 1.06fr 0.94fr;
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    .venue-image {
+      position: relative;
+      min-height: 470px;
+      overflow: hidden;
+      border-radius: var(--radius);
+      background:
+        linear-gradient(180deg, transparent 46%, rgba(4,20,31,0.82) 100%),
+        url("venue-01.jpg") center / cover no-repeat,
+        linear-gradient(135deg, #8bb2b5, #24485a);
+      box-shadow: var(--shadow-md);
+    }
+
+    .venue-image-caption {
+      position: absolute;
+      right: 28px;
+      bottom: 25px;
+      left: 28px;
+      color: #fff;
+    }
+
+    .venue-image-caption span {
+      display: block;
+      margin-bottom: 5px;
+      color: rgba(255,255,255,0.62);
+      font-size: 10px;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    .venue-image-caption strong {
+      font-family: Georgia, "Times New Roman", "Noto Serif KR", serif;
+      font-size: 26px;
+      font-weight: 500;
+    }
+
+    .venue-info-card {
+      padding: 34px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .venue-info-card h3 {
+      margin: 0 0 9px;
+      font-family: Georgia, "Times New Roman", "Noto Serif KR", serif;
+      font-size: 26px;
+      line-height: 1.32;
+    }
+
+    .venue-info-card > p {
+      margin: 0 0 25px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .info-list {
+      margin: 0;
+    }
+
+    .info-row {
+      padding: 16px 0;
+      display: grid;
+      grid-template-columns: 78px 1fr;
+      gap: 12px;
+      border-top: 1px solid var(--soft-line);
+    }
+
+    .info-row dt {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 760;
+    }
+
+    .info-row dd {
+      margin: 0;
+      font-size: 13px;
+      font-weight: 620;
+    }
+
+    .venue-actions {
+      margin-top: 25px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+    }
+
+    .btn {
+      min-height: 42px;
+      padding: 10px 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: 1px solid transparent;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 750;
+      transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      color: #fff;
+      background: var(--navy-800);
+    }
+
+    .btn-secondary {
+      color: var(--navy-800);
+      border-color: var(--line);
+      background: #fff;
+    }
+
+    .route-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .route-card {
+      padding: 27px;
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      background: #fff;
+    }
+
+    .route-number {
+      width: 36px;
+      height: 36px;
+      margin-bottom: 18px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      color: #fff;
+      background: var(--teal-600);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 15px;
+    }
+
+    .route-card h4 {
+      margin: 0 0 10px;
+      font-family: Georgia, "Times New Roman", "Noto Serif KR", serif;
+      font-size: 20px;
+    }
+
+    .route-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .route-steps {
+      margin: 16px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .route-steps li {
+      position: relative;
+      padding: 0 0 14px 21px;
+      color: #45545e;
+      font-size: 12px;
+    }
+
+    .route-steps li::before {
+      position: absolute;
+      top: 7px;
+      left: 2px;
+      width: 7px;
+      height: 7px;
+      content: "";
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .route-steps li:not(:last-child)::after {
+      position: absolute;
+      top: 14px;
+      bottom: 0;
+      left: 5px;
+      width: 1px;
+      content: "";
+      background: #e4d7bc;
+    }
+
+    .photo-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 0.7fr;
+      gap: 15px;
+    }
+
+    .photo-placeholder {
+      position: relative;
+      min-height: 330px;
+      overflow: hidden;
+      border-radius: 15px;
+      background:
+        linear-gradient(180deg, transparent 55%, rgba(4,20,31,0.78)),
+        url("venue-02.jpg") center / cover no-repeat,
+        linear-gradient(135deg, #d0ddd8, #506d77);
+    }
+
+    .photo-placeholder.secondary {
+      min-height: 330px;
+      background:
+        linear-gradient(180deg, transparent 55%, rgba(4,20,31,0.78)),
+        url("venue-03.jpg") center / cover no-repeat,
+        linear-gradient(135deg, #b7c7c9, #294b5d);
+    }
+
+    .photo-label {
+      position: absolute;
+      right: 18px;
+      bottom: 16px;
+      left: 18px;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 650;
+    }
+
+    .edit-tip {
+      margin-top: 20px;
+      padding: 18px 20px;
+      border: 1px dashed #cab985;
+      border-radius: 12px;
+      color: #65552f;
+      background: #faf5e8;
+      font-size: 12px;
+    }
+
+    .site-footer {
+      padding: 46px 0;
+      color: rgba(255,255,255,0.58);
+      background: #061823;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 30px;
+      align-items: end;
+    }
+
+    .footer-title {
+      margin-bottom: 7px;
+      color: #fff;
+      font-family: Georgia, "Times New Roman", "Noto Serif KR", serif;
+      font-size: 18px;
+    }
+
+    .footer-copy {
+      max-width: 680px;
+      font-size: 11px;
+      line-height: 1.7;
+    }
+
+    .footer-year {
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .to-top {
+      position: fixed;
+      z-index: 800;
+      right: 22px;
+      bottom: 22px;
+      width: 43px;
+      height: 43px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: 50%;
+      color: #fff;
+      background: rgba(7,28,43,0.88);
+      opacity: 0;
+      pointer-events: none;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.14);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .to-top.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .to-top:hover {
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 980px) {
+      :root {
+        --header-height: 68px;
+      }
+
+      .menu-toggle {
+        display: grid;
+      }
+
+      .main-nav {
+        position: fixed;
+        top: var(--header-height);
+        right: 0;
+        left: 0;
+        padding: 18px 20px 24px;
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 2px;
+        border-top: 1px solid rgba(255,255,255,0.1);
+        background: rgba(7, 28, 43, 0.99);
+        box-shadow: 0 18px 35px rgba(0,0,0,0.16);
+      }
+
+      .main-nav.open {
+        display: flex;
+      }
+
+      .nav-link {
+        width: 100%;
+        padding: 15px 12px;
+        text-align: left;
+      }
+
+      .nav-link::after {
+        top: 12px;
+        right: auto;
+        bottom: 12px;
+        left: 0;
+        width: 2px;
+        height: auto;
+        transform: scaleY(0);
+      }
+
+      .nav-link.active::after {
+        transform: scaleY(1);
+      }
+
+      .hero {
+        min-height: 720px;
+      }
+
+      .hero-inner {
+        grid-template-columns: 1fr;
+        gap: 42px;
+        align-items: center;
+      }
+
+      .hero-side {
+        max-width: 620px;
+      }
+
+      .intro-grid,
+      .venue-lead {
+        grid-template-columns: 1fr;
+      }
+
+      .people-groups {
+        grid-template-columns: 1fr;
+      }
+
+      .organizer-grid,
+      .sponsor-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .photo-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .container,
+      .nav-inner,
+      .hero-inner {
+        width: min(calc(100% - 28px), var(--max-width));
+      }
+
+      .brand-copy span {
+        display: none;
+      }
+
+      .hero-inner {
+        padding-top: calc(var(--header-height) + 76px);
+        padding-bottom: 80px;
+      }
+
+      .hero h1 {
+        font-size: clamp(39px, 11vw, 58px);
+      }
+
+      .hero-title-en {
+        font-size: 20px;
+      }
+
+      .hero-meta {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .meta-pill {
+        width: 100%;
+        border-radius: 12px;
+      }
+
+      .quick-grid,
+      .organizer-grid,
+      .sponsor-grid,
+      .route-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section {
+        padding: 64px 0;
+      }
+
+      .section-head {
+        margin-bottom: 28px;
+        align-items: start;
+        flex-direction: column;
+      }
+
+      .page-hero {
+        padding-top: calc(var(--header-height) + 58px);
+        padding-bottom: 58px;
+      }
+
+      .search-row,
+      .participants-tools {
+        grid-template-columns: 1fr;
+      }
+
+      .participants-card {
+        overflow-x: auto;
+      }
+
+      .participants-table {
+        min-width: 650px;
+      }
+
+      .venue-image {
+        min-height: 360px;
+      }
+
+      .venue-info-card {
+        padding: 26px 22px;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media print {
+      .site-header,
+      .to-top,
+      .hero-scroll,
+      .menu-toggle,
+      .toolbar,
+      .search-row,
+      .participants-tools,
+      .venue-actions {
+        display: none !important;
+      }
+
+      .page {
+        display: block !important;
+        min-height: auto;
+        page-break-after: always;
+      }
+
+      .hero,
+      .page-hero {
+        min-height: auto;
+        padding: 35px 0;
+        color: #111;
+        background: #fff;
+      }
+
+      .hero-inner {
+        padding: 0;
+        display: block;
+      }
+
+      .hero-side {
+        margin-top: 20px;
+        color: #111;
+        border-color: #ccc;
+        background: #fff;
+      }
+
+      .hero-title-en,
+      .hero-kicker,
+      .meta-pill,
+      .hero-side dt,
+      .hero-side-label,
+      .page-hero p,
+      .page-kicker {
+        color: #444;
+      }
+
+      .section {
+        padding: 32px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#mainContent">본문 바로가기</a>
+
+  <header class="site-header" id="siteHeader">
+    <div class="nav-inner">
+      <a class="brand" href="#home" data-page-link="home" aria-label="홈으로 이동">
+        <span class="brand-mark">GT</span>
+        <span class="brand-copy">
+          <strong>Young-Nam Geometry &amp; Topology</strong>
+          <span>7th Workshop · 2026</span>
+        </span>
+      </a>
+
+      <nav class="main-nav" id="mainNav" aria-label="주요 메뉴">
+        <button class="nav-link active" type="button" data-page-link="home">Home</button>
+        <button class="nav-link" type="button" data-page-link="schedule">Schedule</button>
+        <button class="nav-link" type="button" data-page-link="abstracts">Abstracts</button>
+        <button class="nav-link" type="button" data-page-link="participants">Participants</button>
+        <button class="nav-link" type="button" data-page-link="venue">Venue</button>
+      </nav>
+
+      <button class="menu-toggle" id="menuToggle" type="button" aria-label="메뉴 열기" aria-expanded="false">
+        <span aria-hidden="true"></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="mainContent">
+    <!-- ======================= PAGE 1 : HOME ======================= -->
+    <section class="page active" id="page-home" data-page="home">
+      <section class="hero" aria-labelledby="conferenceTitle">
+        <div class="hero-inner">
+          <div>
+
+            <h1 id="conferenceTitle">
+              <span id="homeTitleKo">제 7회 영남권 기하위상 학회</span>
+              <span class="hero-title-en" id="homeTitleEn">The 7th Workshop on Geometry and Topology around Young-Nam</span>
+            </h1>
+
+            <div class="hero-meta">
+              <span class="meta-pill"><span class="meta-icon"></span><span id="homeDate">2026년 9월 17일(목) – 19일(토)</span></span>
+              <span class="meta-pill"><span class="meta-icon"></span><span id="homeVenue">경북대학교 · 경북대학교병원 인재원</span></span>
+            </div>
+          </div>
+
+        </div>
+        <div class="hero-scroll">Scroll</div>
+      </section>
+
+      <section class="section" id="speakersSection">
+        <div class="container">
+          <div class="section-head">
+            <div>
+
+              <h2 class="section-title">Speakers</h2>
+
+            </div>
+          </div>
+          <div class="people-groups" id="speakerGroups"></div>
+        </div>
+      </section>
+
+      <section class="section deep">
+        <div class="container">
+          <div class="section-head">
+            <div>
+
+              <h2 class="section-title">Organizers</h2>
+            </div>
+          </div>
+          <div class="organizer-grid" id="organizerGrid"></div>
+        </div>
+      </section>
+
+      <section class="section white">
+        <div class="container">
+          <div class="section-head">
+            <div>
+
+              <h2 class="section-title">Sponsored by</h2>
+
+            </div>
+          </div>
+          <div class="sponsor-grid" id="sponsorGrid"></div>
+        </div>
+      </section>
+
+      <section class="section deep">
+        <div class="container">
+          <div class="section-head">
+            <div>
+
+              <h2 class="section-title">Previous Workshops</h2>
+            </div>
+          </div>
+  <div class="previous-workshop-list">
+    <a href="https://sites.google.com/view/yngt-6th"
+       target="_blank"
+       rel="noopener noreferrer">
+      The 6th Workshop on Geometry and Topology around Young-Nam
+    </a>
+  <br>
+    <a href="https://sites.google.com/view/5thyoungnam"
+       target="_blank"
+       rel="noopener noreferrer">
+      The 5th Workshop on Geometry and Topology around Young-Nam
+    </a>
+  <br>
+    <a href="https://geometry.knu.ac.kr/conferences/YoungNamGTWorkshop/"
+       target="_blank"
+       rel="noopener noreferrer">
+      The 4th Workshop on Geometry and Topology around Young-Nam
+    </a>
+  <br>
+    <a href="https://sites.google.com/view/yngt"
+       target="_blank"
+       rel="noopener noreferrer">
+      The 3rd Workshop on Geometry and Topology around Young-Nam
+    </a>
+        </div>
+      </section>
+    </section>
+
+
+    <!-- ===================== PAGE 2 : SCHEDULE ===================== -->
+    <section class="page" id="page-schedule" data-page="schedule">
+      <section class="page-hero">
+        <div class="container">
+
+          <h2>Schedule</h2>
+
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="toolbar">
+            <div class="segmented" id="scheduleTabs" aria-label="일자 선택"></div>
+ 
+          </div>
+          <div id="scheduleContainer"></div>
+        </div>
+      </section>
+    </section>
+
+    <!-- ===================== PAGE 3 : ABSTRACTS ==================== -->
+    <section class="page" id="page-abstracts" data-page="abstracts">
+      <section class="page-hero">
+        <div class="container">
+
+          <h2>Abstracts</h2>
+
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="search-row">
+            <input class="search-input" id="abstractSearch" type="search" placeholder="발표자, 소속, 강연 제목 검색" aria-label="초록 검색" />
+            <div class="search-count" id="abstractCount">0 talks</div>
+          </div>
+          <div class="abstract-list" id="abstractList"></div>
+        </div>
+      </section>
+    </section>
+
+    <!-- =================== PAGE 4 : PARTICIPANTS =================== -->
+    <section class="page" id="page-participants" data-page="participants">
+      <section class="page-hero">
+        <div class="container">
+
+          <h2>Participants</h2>
+
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="participants-tools">
+            <input class="search-input" id="participantSearch" type="search" placeholder="성명 또는 소속기관 검색" aria-label="참가자 검색" />
+            <select class="filter-select" id="affiliationFilter" aria-label="소속기관 필터">
+              <option value="all">전체 소속기관</option>
+            </select>
+          </div>
+
+          <div class="participants-card">
+            <div class="table-wrap">
+              <table class="participants-table">
+                <thead>
+                  <tr>
+                    <th>No.</th>
+                    <th>Name</th>
+                    <th>Affiliation</th>
+                  </tr>
+                </thead>
+                <tbody id="participantRows"></tbody>
+              </table>
+            </div>
+            <div class="empty-state" id="participantEmpty" hidden>검색 결과가 없습니다.</div>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <!-- ======================= PAGE 5 : VENUE ====================== -->
+    <section class="page" id="page-venue" data-page="venue">
+      <section class="page-hero">
+        <div class="container">
+
+          <h2>Venue</h2>
+
+        </div>
+      </section>
+
+      <section class="section white">
+        <div class="container venue-lead">
+          <div class="venue-image" id="venueHeroImage">
+            <div class="venue-image-caption">
+              <span>Conference Venue</span>
+              <strong>경북대학교·경북대학교병원 인재원</strong>
+            </div>
+          </div>
+
+          <div class="venue-info-card">
+            <div class="section-eyebrow">Location</div>
+            <h3>경북대학교·경북대학교병원<br />인재원</h3>
+            <p>Kyungpook National University · Kyungpook National University Hospital Human Resources Development Institute</p>
+
+            <dl class="info-list">
+              <div class="info-row">
+                <dt>주소</dt>
+                <dd>경상북도 포항시 남구 구룡포읍 하정로 153 (우 37938)</dd>
+              </div>
+              <div class="info-row">
+                <dt>지번</dt>
+                <dd>구룡포읍 하정리 9</dd>
+              </div>
+              <div class="info-row">
+                <dt>전화</dt>
+                <dd>054-288-3000</dd>
+              </div>
+              <div class="info-row">
+                <dt>네비게이션 검색</dt>
+                <dd>“경북대학교,경북대학교병원 인재원”</dd>
+              </div>
+            </dl>
+
+            <div class="venue-actions">
+              <a class="btn btn-primary" href="https://human.knu.ac.kr/cms/contents.do?cmsSeq=5" target="_blank" rel="noopener noreferrer">공식 오시는 길 ↗</a>
+              <a class="btn btn-secondary" href="https://map.naver.com/p/search/%EA%B2%BD%EB%B6%81%EB%8C%80%ED%95%99%EA%B5%90%20%EA%B2%BD%EB%B6%81%EB%8C%80%ED%95%99%EA%B5%90%EB%B3%91%EC%9B%90%20%EC%9D%B8%EC%9E%AC%EC%9B%90" target="_blank" rel="noopener noreferrer">네이버지도 ↗</a>
+              <a class="btn btn-secondary" href="https://map.kakao.com/link/search/%EA%B2%BD%EB%B6%81%EB%8C%80%ED%95%99%EA%B5%90%20%EA%B2%BD%EB%B6%81%EB%8C%80%ED%95%99%EA%B5%90%EB%B3%91%EC%9B%90%20%EC%9D%B8%EC%9E%AC%EC%9B%90" target="_blank" rel="noopener noreferrer">카카오맵 ↗</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-head">
+            <div>
+
+              <h2 class="section-title">오시는 길</h2>
+
+            </div>
+          </div>
+
+          <div class="route-grid">
+            <article class="route-card">
+              <div class="route-number">01</div>
+              <h4>자동차 이용</h4>
+              <p>포항IC에서 인재원까지 안내된 주요 경로입니다.</p>
+              <ol class="route-steps">
+                <li>포항IC 출발</li>
+                <li>희망대로 약 3.2 km</li>
+                <li>동해안로 약 16.4 km</li>
+                <li>하정로 약 1.1 km</li>
+                <li>경북대학교·경북대학교병원 인재원 도착</li>
+              </ol>
+              <p style="margin-top:10px;"><strong>안내 소요시간:</strong> 약 30분</p>
+            </article>
+
+            <article class="route-card">
+              <div class="route-number">02</div>
+              <h4>대중교통 이용</h4>
+              <p>포항시외버스터미널에서 출발하는 공식 안내 경로입니다.</p>
+              <ol class="route-steps">
+                <li>포항시외버스터미널 정류장 → 좌석 900번</li>
+                <li>병포삼거리 정류장 하차</li>
+                <li>지선 구룡포1 환승</li>
+                <li>하정3리 정류장 하차</li>
+                <li>도보 약 5분 (약 353 m)</li>
+              </ol>
+            </article>
+          </div>
+        </div>
+      </section>
+
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <div class="footer-title">The 7th Workshop on Geometry and Topology around Young-Nam</div>
+        <div class="footer-copy">
+          2026년 9월 17일(목) – 19일(토) · 경북대학교·경북대학교병원 인재원<br />
+
+        </div>
+      </div>
+      <div class="footer-year">© 2026 Young-Nam GT Workshop</div>
+    </div>
+  </footer>
+
+  <button class="to-top" id="toTop" type="button" aria-label="맨 위로 이동">↑</button>
+
+  <script>
+    /* ============================================================
+       EDIT HERE — 이 영역만 수정하면 주요 내용이 자동 반영됩니다.
+       ============================================================ */
+
+    const conferenceData = {
+      conference: {
+        titleKo: "제 7회 영남권 기하위상 학회",
+        titleEn: "The 7th Workshop on Geometry and Topology around Young-Nam",
+        dateKo: "2026년 9월 17일(목) – 19일(토)",
+        dateEn: "17–19 September 2026",
+        venueKo: "경북대학교 · 경북대학교병원 인재원",
+        venueEn: "KNU · KNUH Human Resources Development Institute"
+      },
+
+      speakers: {
+        special: [
+          { name: "황준묵", affiliation: "고등과학원" }
+        ],
+        intensive: [
+          { name: "안병희", affiliation: "경북대학교" }
+        ],
+        invited: [
+          { name: "김성정", affiliation: "경북대학교" },
+          { name: "권보현", affiliation: "UNIST" },
+          { name: "양수령", affiliation: "부경대학교" },
+          { name: "이지현", affiliation: "IBS-CGP" },
+          { name: "홍연재", affiliation: "경상국립대학교" },
+          { name: "Tseleung So", affiliation: "부산대학교" }
+        ],
+        contributed: [
+          { name: "오진석", affiliation: "경북대학교" },
+          { name: "윤홍대", affiliation: "경북대학교" },
+          { name: "이준엽", affiliation: "부산대학교" },
+          { name: "최진주", affiliation: "부산대학교" }
+        ]
+      },
+
+      organizers: [
+        { name: "김영락", affiliation: "부산대학교" },
+        { name: "김유식", affiliation: "부산대학교" },
+        { name: "박경동", affiliation: "경상국립대학교" },
+        { name: "송종백", affiliation: "부산대학교" },
+        { name: "안병희", affiliation: "경북대학교" },
+        { name: "양승엽", affiliation: "경북대학교" },
+        { name: "우창화", affiliation: "부경대학교" },
+        { name: "정기룡", affiliation: "경북대학교" },
+        { name: "조용화", affiliation: "경상국립대학교" },
+        { name: "표준철", affiliation: "부산대학교" }
+      ],
+
+      // 로고 파일을 같은 폴더에 넣고 image 값을 예: "sponsor-01.png"로 바꾸세요.
+      sponsors: [
+        { name: "Sponsor / Institution 01", image: "sponsor-01.jpg" },
+        { name: "Sponsor / Institution 02", image: "sponsor-02.jpg" },
+        { name: "Sponsor / Institution 03", image: "sponsor-03.png" },
+        { name: "Sponsor / Institution 04", image: "sponsor-04.png" }
+      ],
+
+      schedule: [
+        {
+          id: "day0",
+          tab: "9월 17일 (목)",
+          label: "Day 0 · Thursday, September 17",
+          note: "경북대학교·경북대학교병원 인재원",
+          items: [
+            { time: "16:00–16:50", speaker: "안병희", affiliation: "경북대학교", title: "TBA", chair: "", type: "Intensive Lecture I" },
+            { time: "17:00–17:50", speaker: "안병희", affiliation: "경북대학교", title: "TBA", chair: "", type: "Intensive Lecture II" },
+            { time: "18:00–", speaker: "", affiliation: "", title: "Dinner", chair: "", type: "", break: true }
+          ]
+        },
+        {
+          id: "day1",
+          tab: "9월 18일 (금)",
+          label: "Day 1 · Friday, September 18",
+          note: "경북대학교·경북대학교병원 인재원",
+          items: [
+            { time: "10:00–10:50", speaker: "안병희", affiliation: "경북대학교", title: "TBA", chair: "", type: "Intensive Lecture III" },
+            { time: "11:00–11:50", speaker: "안병희", affiliation: "경북대학교", title: "TBA", chair: "", type: "Intensive Lecture IV" },
+            { time: "12:00–13:30", speaker: "", affiliation: "", title: "Lunch", chair: "", type: "", break: true },
+            { time: "13:30–14:00", speaker: "", affiliation: "", title: "Registration", chair: "", type: "", break: true },
+            { time: "14:00–14:50", speaker: "황준묵", affiliation: "고등과학원", title: "TBA", chair: "정기룡", type: "Special Guest Lecture" },
+            { time: "15:00–15:20", speaker: "", affiliation: "", title: "Coffee Break", chair: "", type: "", break: true },
+            { time: "15:20–15:50", speaker: "권보현", affiliation: "UNIST", title: "TBA", chair: "조용화", type: "Invited Talk" },
+            { time: "16:00–16:30", speaker: "양수령", affiliation: "부경대학교", title: "TBA", chair: "우창화", type: "Invited Talk" },
+            { time: "16:40–17:10", speaker: "김성정", affiliation: "경북대학교", title: "TBA", chair: "양승엽", type: "Invited Talk" },
+            { time: "17:20–17:30", speaker: "", affiliation: "", title: "Group Photo", chair: "", type: "", break: true },
+            { time: "17:30–", speaker: "", affiliation: "", title: "Conference Dinner", chair: "", type: "", break: true }
+          ]
+        },
+        {
+          id: "day2",
+          tab: "9월 19일 (토)",
+          label: "Day 2 · Saturday, September 19",
+          note: "경북대학교·경북대학교병원 인재원",
+          items: [
+            { time: "10:00–10:30", speaker: "이지현", affiliation: "IBS-CGP", title: "TBA", chair: "표준철", type: "Invited Talk" },
+            { time: "10:40–11:10", speaker: "홍연재", affiliation: "경상국립대학교", title: "TBA", chair: "박경동", type: "Invited Talk" },
+            { time: "11:20–11:50", speaker: "Tseleung So", affiliation: "부산대학교", title: "TBA", chair: "송종백", type: "Invited Talk" },
+            { time: "12:00–14:00", speaker: "", affiliation: "", title: "Lunch", chair: "", type: "", break: true },
+            { time: "14:00–14:15", speaker: "이준엽", affiliation: "부산대학교", title: "TBA", chair: "김유식", type: "Contributed Talk" },
+            { time: "14:15–14:30", speaker: "최진주", affiliation: "부산대학교", title: "TBA", chair: "김유식", type: "Contributed Talk" },
+            { time: "14:30–14:45", speaker: "오진석", affiliation: "경북대학교", title: "TBA", chair: "김유식", type: "Contributed Talk" },
+            { time: "14:45–15:00", speaker: "윤홍대", affiliation: "경북대학교", title: "TBA", chair: "김유식", type: "Contributed Talk" },
+            { time: "15:00–18:00", speaker: "", affiliation: "", title: "Free Discussion", chair: "", type: "Discussion"}
+          ]
+        }
+      ],
+
+      abstracts: [
+        {
+          type: "Special Guest Lecture",
+          title: "[Special Guest Lecture] TBA",
+          speaker: "황준묵",
+          affiliation: "고등과학원",
+          abstract: [
+            "TBA"
+          ]
+        },
+        {
+          type: "Intensive Lectures",
+          title: "[Intensive Lectures I-IV] TBA",
+          speaker: "안병희",
+          affiliation: "경북대학교",
+          abstract: [
+            "TBA"
+          ]
+        },
+        {
+          type: "Invited Talk",
+          title: "[Invited Talk] TBA",
+          speaker: "김성정",
+          affiliation: "경북대학교",
+          abstract: [
+            "TBA"
+          ]
+        },
+        {
+          type: "Invited Talk",
+          title: "[Invited Talk] TBA",
+          speaker: "권보현",
+          affiliation: "UNIST",
+          abstract: [
+            "TBA"
+          ]
+        },
+        {
+          type: "Invited Talk",
+          title: "[Invited Talk] TBA",
+          speaker: "양수령",
+          affiliation: "부경대학교",
+          abstract: [
+            "TBA"
+          ]
+        },
+        {
+          type: "Invited Talk",
+          title: "[Invited Talk] TBA",
+          speaker: "이지현",
+          affiliation: "IBS-CGP",
+          abstract: [
+            "TBA"
+          ]
+        },
+        {
+          type: "Invited Talk",
+          title: "[Invited Talk] TBA",
+          speaker: "홍연재",
+          affiliation: "경상국립대학교",
+          abstract: [
+            "TBA"
+          ]
+        },
+        {
+          type: "Invited Talk",
+          title: "[Invited Talk] TBA",
+          speaker: "Tseleung So",
+          affiliation: "부산대학교",
+          abstract: [
+            "TBA"
+          ]
+        },
+        {
+          type: "Contributed Talk",
+          title: "[Contributed Talk] TBA",
+          speaker: "오진석",
+          affiliation: "경북대학교",
+          abstract: [
+            "TBA"
+          ]
+        },
+       {
+          type: "Contributed Talk",
+          title: "[Contributed Talk] TBA",
+          speaker: "윤홍대",
+          affiliation: "경북대학교",
+          abstract: [
+            "TBA"
+          ]
+        },
+       {
+          type: "Contributed Talk",
+          title: "[Contributed Talk] TBA",
+          speaker: "이준엽",
+          affiliation: "부산대학교",
+          abstract: [
+            "TBA"
+          ]
+        },
+       {
+          type: "Contributed Talk",
+          title: "[Contributed Talk] TBA",
+          speaker: "최진주",
+          affiliation: "부산대학교",
+          abstract: [
+            "TBA"
+          ]
+        }
+      ],
+
+
+      participants: [
+        { name: "TBA", affiliation: "TBA" },
+        { name: "TBA", affiliation: "TBA" },
+        { name: "TBA", affiliation: "TBA" },
+        { name: "TBA", affiliation: "TBA" },
+        { name: "TBA", affiliation: "TBA" },
+        { name: "TBA", affiliation: "TBA" },
+        { name: "TBA", affiliation: "TBA" },
+        { name: "TBA", affiliation: "TBA" },
+        { name: "TBA", affiliation: "TBA" },
+        { name: "TBA", affiliation: "TBA" }
+      ]
+    };
+
+    /* ============================================================
+       렌더링 코드 — 일반적으로 아래는 수정하지 않아도 됩니다.
+       ============================================================ */
+
+    const pageIds = ["home", "schedule", "abstracts", "participants", "venue"];
+    const pageElements = [...document.querySelectorAll(".page")];
+    const navLinks = [...document.querySelectorAll("[data-page-link]")];
+    const mainNav = document.getElementById("mainNav");
+    const menuToggle = document.getElementById("menuToggle");
+    const siteHeader = document.getElementById("siteHeader");
+    const toTop = document.getElementById("toTop");
+
+    function escapeHtml(value = "") {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function applyConferenceInfo() {
+      const c = conferenceData.conference;
+      document.getElementById("homeTitleKo").textContent = c.titleKo;
+      document.getElementById("homeTitleEn").textContent = c.titleEn;
+      document.getElementById("homeDate").textContent = c.dateKo;
+      document.getElementById("homeVenue").textContent = c.venueKo;
+      document.title = `${c.titleKo} | 2026`;
+    }
+
+  function renderSpeakers() {
+
+  function makeCard(key, label) {
+    const people = conferenceData.speakers[key] || [];
+
+    const rows = people.length
+      ? people.map(p => `
+          <li>
+            <span class="person-name">${escapeHtml(p.name)}</span>
+            <span class="person-affiliation">${escapeHtml(p.affiliation)}</span>
+          </li>
+        `).join("")
+      : `
+          <li>
+            <span class="person-name">TBA</span>
+            <span class="person-affiliation">To be announced</span>
+          </li>
+        `;
+
+    return `
+      <article class="people-card">
+        <div class="people-card-head">
+          <h3>${label}</h3>
+        </div>
+        <ul class="people-list">${rows}</ul>
+      </article>
+    `;
+  }
+
+  const html = `
+    <div class="people-column">
+      ${makeCard("special", "Special Guest Lecture")}
+      ${makeCard("intensive", "Intensive Lectures")}
+    </div>
+
+    ${makeCard("invited", "Invited Talks")}
+
+    ${makeCard("contributed", "Contributed Talks")}
+  `;
+
+  document.getElementById("speakerGroups").innerHTML = html;
+}
+
+    function renderOrganizers() {
+      const items = conferenceData.organizers.map(person => `
+        <div class="organizer-chip">
+          <strong>${escapeHtml(person.name)}</strong>
+          <span>${escapeHtml(person.affiliation)}</span>
+        </div>
+      `).join("");
+      document.getElementById("organizerGrid").innerHTML = items;
+    }
+
+    function renderSponsors() {
+      const items = conferenceData.sponsors.map((sponsor, index) => {
+        if (sponsor.image) {
+          return `
+            <div class="sponsor-logo">
+              <img src="${escapeHtml(sponsor.image)}" alt="${escapeHtml(sponsor.name)} 로고" onerror="this.hidden=true; this.nextElementSibling.hidden=false;" />
+              <div class="sponsor-fallback" hidden><strong>${escapeHtml(sponsor.name)}</strong>Logo image</div>
+            </div>
+          `;
+        }
+        return `
+          <div class="sponsor-logo">
+            <div class="sponsor-fallback"><strong>${escapeHtml(sponsor.name)}</strong>추후 로고 추가</div>
+          </div>
+        `;
+      }).join("");
+      document.getElementById("sponsorGrid").innerHTML = items;
+    }
+
+    function renderSchedule() {
+      const tabs = conferenceData.schedule.map((day, index) => `
+        <button class="segment-btn ${index === 0 ? "active" : ""}" type="button" data-schedule-day="${escapeHtml(day.id)}">
+          ${escapeHtml(day.tab)}
+        </button>
+      `).join("");
+      document.getElementById("scheduleTabs").innerHTML = tabs;
+
+      const days = conferenceData.schedule.map((day, index) => {
+        const rows = day.items.map(item => `
+          <tr class="${item.break ? "break-row" : ""}">
+            <td class="time">${escapeHtml(item.time)}</td>
+            <td class="speaker">
+              ${escapeHtml(item.speaker)}
+              ${item.affiliation ? `<small>${escapeHtml(item.affiliation)}</small>` : ""}
+            </td>
+            <td class="talk-title">
+              ${escapeHtml(item.title)}
+              ${item.type ? `<div><span class="type-badge">${escapeHtml(item.type)}</span></div>` : ""}
+            </td>
+            <td>${escapeHtml(item.chair || "")}</td>
+          </tr>
+        `).join("");
+
+        return `
+          <div class="schedule-day ${index === 0 ? "active" : ""}" data-schedule-panel="${escapeHtml(day.id)}">
+            <div class="schedule-card">
+              <div class="schedule-titlebar">
+                <strong>${escapeHtml(day.label)}</strong>
+                <span>${escapeHtml(day.note)}</span>
+              </div>
+              <div class="table-wrap">
+                <table class="schedule-table">
+                  <thead>
+                    <tr>
+                      <th>Time</th>
+                      <th>Speaker</th>
+                      <th>Title / Session</th>
+                      <th>Chair</th>
+                    </tr>
+                  </thead>
+                  <tbody>${rows}</tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      document.getElementById("scheduleContainer").innerHTML = days;
+
+      document.querySelectorAll("[data-schedule-day]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll("[data-schedule-day]").forEach(x => x.classList.remove("active"));
+          document.querySelectorAll("[data-schedule-panel]").forEach(x => x.classList.remove("active"));
+          btn.classList.add("active");
+          const panel = document.querySelector(`[data-schedule-panel="${btn.dataset.scheduleDay}"]`);
+          if (panel) panel.classList.add("active");
+        });
+      });
+    }
+
+    function renderAbstracts(query = "") {
+      const normalized = query.trim().toLowerCase();
+      const filtered = conferenceData.abstracts.filter(talk => {
+        const haystack = [talk.type, talk.title, talk.speaker, talk.affiliation, ...(talk.abstract || [])].join(" ").toLowerCase();
+        return !normalized || haystack.includes(normalized);
+      });
+
+      document.getElementById("abstractCount").textContent = `${filtered.length} talk${filtered.length === 1 ? "" : "s"}`;
+
+      if (!filtered.length) {
+        document.getElementById("abstractList").innerHTML = `<div class="empty-state">검색 결과가 없습니다.</div>`;
+        return;
+      }
+
+      document.getElementById("abstractList").innerHTML = filtered.map((talk, index) => `
+        <article class="abstract-card" data-abstract-card>
+          <button class="abstract-toggle" type="button" aria-expanded="false">
+            <div>
+              <div class="abstract-meta"><span>${escapeHtml(talk.type)}</span></div>
+              <h3 class="abstract-title">${escapeHtml(talk.title)}</h3>
+              <div class="abstract-speaker">${escapeHtml(talk.speaker)} · ${escapeHtml(talk.affiliation)}</div>
+            </div>
+            <span class="abstract-arrow" aria-hidden="true">⌄</span>
+          </button>
+          <div class="abstract-body">
+            <div class="abstract-body-inner">
+              ${(talk.abstract || []).map(p => `<p>${escapeHtml(p)}</p>`).join("")}
+            </div>
+          </div>
+        </article>
+      `).join("");
+
+      document.querySelectorAll("[data-abstract-card] .abstract-toggle").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const card = btn.closest("[data-abstract-card]");
+          const isOpen = card.classList.toggle("open");
+          btn.setAttribute("aria-expanded", String(isOpen));
+        });
+      });
+    }
+
+    function buildAffiliationFilter() {
+      const select = document.getElementById("affiliationFilter");
+      const affiliations = [...new Set(conferenceData.participants.map(p => p.affiliation).filter(Boolean))].sort((a, b) => a.localeCompare(b, "ko"));
+      const options = affiliations.map(value => `<option value="${escapeHtml(value)}">${escapeHtml(value)}</option>`).join("");
+      select.insertAdjacentHTML("beforeend", options);
+    }
+
+    function renderParticipants() {
+      const query = document.getElementById("participantSearch").value.trim().toLowerCase();
+      const affiliation = document.getElementById("affiliationFilter").value;
+
+      const filtered = conferenceData.participants.filter(person => {
+        const matchesQuery = !query || `${person.name} ${person.affiliation}`.toLowerCase().includes(query);
+        const matchesAffiliation = affiliation === "all" || person.affiliation === affiliation;
+        return matchesQuery && matchesAffiliation;
+      });
+
+      const rows = filtered.map((person, index) => `
+        <tr>
+          <td class="participant-no">${String(index + 1).padStart(2, "0")}</td>
+          <td class="participant-name">${escapeHtml(person.name)}</td>
+          <td>${escapeHtml(person.affiliation)}</td>
+        </tr>
+      `).join("");
+
+      document.getElementById("participantRows").innerHTML = rows;
+      document.getElementById("participantEmpty").hidden = filtered.length > 0;
+    }
+
+    function closeMobileMenu() {
+      mainNav.classList.remove("open");
+      menuToggle.classList.remove("is-open");
+      menuToggle.setAttribute("aria-expanded", "false");
+      document.body.classList.remove("menu-open");
+    }
+
+    function showPage(pageId, updateHash = true) {
+      const safeId = pageIds.includes(pageId) ? pageId : "home";
+
+      pageElements.forEach(page => {
+        page.classList.toggle("active", page.dataset.page === safeId);
+      });
+
+      navLinks.forEach(link => {
+        link.classList.toggle("active", link.dataset.pageLink === safeId && link.classList.contains("nav-link"));
+      });
+
+      if (updateHash) {
+        history.pushState(null, "", `#${safeId}`);
+      }
+
+      closeMobileMenu();
+      window.scrollTo({ top: 0, behavior: "auto" });
+    }
+
+    function setupNavigation() {
+      navLinks.forEach(link => {
+        link.addEventListener("click", event => {
+          const pageId = link.dataset.pageLink;
+          if (!pageId) return;
+          event.preventDefault();
+          showPage(pageId, true);
+        });
+      });
+
+      menuToggle.addEventListener("click", () => {
+        const willOpen = !mainNav.classList.contains("open");
+        mainNav.classList.toggle("open", willOpen);
+        menuToggle.classList.toggle("is-open", willOpen);
+        menuToggle.setAttribute("aria-expanded", String(willOpen));
+        document.body.classList.toggle("menu-open", willOpen);
+      });
+
+      window.addEventListener("popstate", () => {
+        showPage(location.hash.replace("#", "") || "home", false);
+      });
+    }
+
+    function setupSearches() {
+      document.getElementById("abstractSearch").addEventListener("input", event => {
+        renderAbstracts(event.target.value);
+      });
+
+      document.getElementById("participantSearch").addEventListener("input", renderParticipants);
+      document.getElementById("affiliationFilter").addEventListener("change", renderParticipants);
+    }
+
+    function setupScrollUI() {
+      window.addEventListener("scroll", () => {
+        const y = window.scrollY;
+        siteHeader.classList.toggle("scrolled", y > 18);
+        toTop.classList.toggle("visible", y > 520);
+      }, { passive: true });
+
+      toTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+    }
+
+    function init() {
+      applyConferenceInfo();
+      renderSpeakers();
+      renderOrganizers();
+      renderSponsors();
+      renderSchedule();
+      renderAbstracts();
+      buildAffiliationFilter();
+      renderParticipants();
+      setupNavigation();
+      setupSearches();
+      setupScrollUI();
+
+      const initialPage = location.hash.replace("#", "") || "home";
+      showPage(initialPage, false);
+    }
+
+    init();
+  </script>
+</body>
+</html>
