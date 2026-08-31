@@ -1674,6 +1674,22 @@
       }
     }
   </style>
+
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']]
+    }
+  };
+</script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+
 </head>
 <body>
   <a class="skip-link" href="#mainContent">본문 바로가기</a>
@@ -2007,7 +2023,7 @@
 
       speakers: {
         special: [
-          { name: "황준묵", affiliation: "고등과학원" }
+          { name: "황준묵", affiliation: "기초과학연구원" }
         ],
         intensive: [
           { name: "안병희", affiliation: "경북대학교" }
@@ -2071,11 +2087,11 @@
             { time: "11:00–11:50", speaker: "안병희", affiliation: "경북대학교", title: "TBA", chair: "", type: "Intensive Lecture IV" },
             { time: "12:00–13:30", speaker: "", affiliation: "", title: "Lunch", chair: "", type: "", break: true },
             { time: "13:30–14:00", speaker: "", affiliation: "", title: "Registration", chair: "", type: "", break: true },
-            { time: "14:00–14:50", speaker: "황준묵", affiliation: "고등과학원", title: "TBA", chair: "정기룡", type: "Special Guest Lecture" },
+            { time: "14:00–14:50", speaker: "황준묵", affiliation: "기초과학연구원", title: "Canonical connections of geometric structures", chair: "정기룡", type: "Special Guest Lecture" },
             { time: "15:00–15:20", speaker: "", affiliation: "", title: "Coffee Break", chair: "", type: "", break: true },
-            { time: "15:20–15:50", speaker: "권보현", affiliation: "UNIST", title: "TBA", chair: "조용화", type: "Invited Talk" },
-            { time: "16:00–16:30", speaker: "양수령", affiliation: "부경대학교", title: "TBA", chair: "우창화", type: "Invited Talk" },
-            { time: "16:40–17:10", speaker: "김성정", affiliation: "경북대학교", title: "TBA", chair: "양승엽", type: "Invited Talk" },
+            { time: "15:20–15:50", speaker: "권보현", affiliation: "UNIST", title: "On the Bridge Number by Normal Forms of Three Bridge Presentation Knots", chair: "조용화", type: "Invited Talk" },
+            { time: "16:00–16:30", speaker: "양수령", affiliation: "부경대학교", title: "Defining Ideals and Higher Cuspidal Singularities of Rational Curves of Maximal Genus in $\\mathbb{P}^3$", chair: "우창화", type: "Invited Talk" },
+            { time: "16:40–17:10", speaker: "김성정", affiliation: "경북대학교", title: "Essential Diagrams of Knots in $S_g \\times S^1$", chair: "양승엽", type: "Invited Talk" },
             { time: "17:20–17:30", speaker: "", affiliation: "", title: "Group Photo", chair: "", type: "", break: true },
             { time: "17:30–", speaker: "", affiliation: "", title: "Conference Dinner", chair: "", type: "", break: true }
           ]
@@ -2087,12 +2103,12 @@
           note: "경북대학교·경북대학교병원 인재원",
           items: [
             { time: "10:00–10:30", speaker: "이지현", affiliation: "IBS-CGP", title: "TBA", chair: "표준철", type: "Invited Talk" },
-            { time: "10:40–11:10", speaker: "홍연재", affiliation: "경상국립대학교", title: "TBA", chair: "박경동", type: "Invited Talk" },
-            { time: "11:20–11:50", speaker: "Tseleung So", affiliation: "부산대학교", title: "TBA", chair: "송종백", type: "Invited Talk" },
+            { time: "10:40–11:10", speaker: "홍연재", affiliation: "경상국립대학교", title: "Representation Type of Toric aCM Vector Bundles", chair: "박경동", type: "Invited Talk" },
+            { time: "11:20–11:50", speaker: "Tseleung So", affiliation: "부산대학교", title: "Homotopy cohmological rigidity of toric orbifolds", chair: "송종백", type: "Invited Talk" },
             { time: "12:00–14:00", speaker: "", affiliation: "", title: "Lunch", chair: "", type: "", break: true },
-            { time: "14:00–14:15", speaker: "이준엽", affiliation: "부산대학교", title: "TBA", chair: "김유식", type: "Contributed Talk" },
-            { time: "14:15–14:30", speaker: "최진주", affiliation: "부산대학교", title: "TBA", chair: "김유식", type: "Contributed Talk" },
-            { time: "14:30–14:45", speaker: "오진석", affiliation: "경북대학교", title: "TBA", chair: "김유식", type: "Contributed Talk" },
+            { time: "14:00–14:15", speaker: "이준엽", affiliation: "부산대학교", title: "Entropy and density at infinity of minimal submanifolds", chair: "김유식", type: "Contributed Talk" },
+            { time: "14:15–14:30", speaker: "최진주", affiliation: "부산대학교", title: "Geometry of Gelfand–Zeitlin Fibers and Circle Actions on Coadjoint Orbits", chair: "김유식", type: "Contributed Talk" },
+            { time: "14:30–14:45", speaker: "오진석", affiliation: "경북대학교", title: "A Decomposition of the Homology of Yang–Baxter Operators Associated with the HOMFLYPT Polynomial", chair: "김유식", type: "Contributed Talk" },
             { time: "14:45–15:00", speaker: "윤홍대", affiliation: "경북대학교", title: "TBA", chair: "김유식", type: "Contributed Talk" },
             { time: "15:00–18:00", speaker: "", affiliation: "", title: "Free Discussion", chair: "", type: "Discussion"}
           ]
@@ -2102,11 +2118,11 @@
       abstracts: [
         {
           type: "Special Guest Lecture",
-          title: "[Special Guest Lecture] TBA",
+          title: "[Special Guest Lecture] Canonical connections of geometric structures",
           speaker: "황준묵",
-          affiliation: "고등과학원",
+          affiliation: "기초과학연구원",
           abstract: [
-            "TBA"
+            "This is an introductory talk on canonical connections associated with geometric structures. We explain, by geometric concepts avoiding technical details, E. Cartan’s idea of prolongations of geometric structures for $G$-structures and its more refined version due to N. Tanaka. "
           ]
         },
         {
@@ -2120,29 +2136,29 @@
         },
         {
           type: "Invited Talk",
-          title: "[Invited Talk] TBA",
+          title: "[Invited Talk] Essential Diagrams of Knots in $S_g \\times S^1$",
           speaker: "김성정",
           affiliation: "경북대학교",
           abstract: [
-            "TBA"
+            "Knots in the product $S_g \\times S^1$, where $S_g$ is a closed oriented surface, can be represented by virtual knot diagrams equipped with additional decorations called double lines. A double line records an intersection of the knot with $S_g \\times \{x_0\}$, or equivalently, a passage of the knot around the $S^1$-direction. In this talk, we study essential diagrams of knots in $S_g \\times S^1$, defined as diagrams that have the minimum possible number of double lines among all diagrams representing the same knot. As a corollary, we prove that virtual knot theory embeds into the theory of knots in $S_g \\times S^1$, in other words, if two virtual knot diagrams without double lines are equivalent under the local moves for knots in $S_g \\times S^1$, then they are already equivalent under the generalized Reidemeister moves of virtual knot theory."
           ]
         },
         {
           type: "Invited Talk",
-          title: "[Invited Talk] TBA",
+          title: "[Invited Talk] On the Bridge Number by Normal Forms of Three Bridge Presentation Knots",
           speaker: "권보현",
           affiliation: "UNIST",
           abstract: [
-            "TBA"
+            "Recently, we introduced the normal form of rational $3$-tangles, and we are currently exploring its potential applications. The $n$-bridge decomposition of knots is one of the fundamental tools in knot theory, as every knot can be represented as the union of two rational $n$-tangles. In this paper, we investigate how the bridge number of knots can be determined from the $3$-bridge decomposition. To this end, we fix one side of the decomposition to be the trivial $3$-tangle and the other to be an arbitrary rational $3$-tangle in minimal normal form. We conjecture that the structure of this minimal normal form is sufficient to determine the bridge number. As a first step toward this goal, we show that if the normal form contains a certain type of bridge arc, then the resulting knot is the unknot, a $2$-bridge knot, or a connected sum of two $2$-bridge knots. Otherwise, except some trivial cases, we conjecture that it is a prime $3$-bridge knot."
           ]
         },
         {
           type: "Invited Talk",
-          title: "[Invited Talk] TBA",
+          title: "[Invited Talk] Defining Ideals and Higher Cuspidal Singularities of Rational Curves of Maximal Genus in $\\mathbb{P}^3$",
           speaker: "양수령",
           affiliation: "부경대학교",
           abstract: [
-            "TBA"
+            "We study a family of monomial rational curves $C_{d,i}\\subset \\mathbb{P}^3$ parametrized by $[s:t]\\longmapsto [s^d:s^{2i}t^{d-2i}:s^it^{d-i}:t^d],$ where $d\\geq 4$, $1\\leq i\\leq \\lfloor (d-1)/2\\rfloor$, and $\\gcd(d,i)=1$. We show that each $C_{d,i}$ lies on the singular rational normal surface scroll $S(0,2)$ and attains Castelnuovo's genus bound. We determine the minimal free resolutions and give explicit minimal generators of the defining ideals of these curves. In particular, for a fixed degree $d$, the graded Betti numbers are independent of the parameter $i$, although the defining equations vary with $i$. We also investigate the local geometry of $C_{d,i}$. The curves have at most two singular points, all of which are cuspidal. We determine their multiplicities and compute their local $\\delta$-invariants using the associated numerical semigroups. Although these local invariants vary with $i$, their total contribution remains equal to the arithmetic genus. Thus, the family provides explicit examples in which the local cuspidal structure varies while both the Castelnuovo genus and the graded Betti numbers remain unchanged."
           ]
         },
         {
@@ -2156,29 +2172,29 @@
         },
         {
           type: "Invited Talk",
-          title: "[Invited Talk] TBA",
+          title: "[Invited Talk] Representation Type of Toric aCM Vector Bundles  ",
           speaker: "홍연재",
           affiliation: "경상국립대학교",
           abstract: [
-            "TBA"
+            "An arithmetically Cohen–Macaulay (aCM) vector bundle is a vector bundle whose intermediate cohomology vanishes after every twist. Such bundles are closely related to maximal Cohen–Macaulay modules and their classification problems are often organized into three representation types: finite, tame, and wild. In this talk, I will present several results on toric aCM vector bundles, where the toric structure allows the problem to be described using Klyachko filtrations. In rank two, the Veronese surface gives a finite classification, while on $P^1 \\times P^1$ the classification already involves continuous moduli.   In higher rank, the behavior becomes much more complicated: for  $P^2,O(d)$, the toric aCM category is of finite representation type for $d=1,2$ and wild for d greater than or equal to three."
           ]
         },
         {
           type: "Invited Talk",
-          title: "[Invited Talk] TBA",
+          title: "[Invited Talk] Homotopy cohmological rigidity of toric orbifolds",
           speaker: "Tseleung So",
           affiliation: "부산대학교",
           abstract: [
-            "TBA"
+            "Toric orbifolds are orbifolds equipped with torus actions analogous to those on toric varieties. Masuda and Suh posed the Cohomological Rigidity Problem, which asks whether their topology or geometry can be determined solely by their cohomology. While affirmative answers are known in several smooth cases, the problem remains largely open in general. In this talk I will present recent progress on the cohomological rigidity of toric orbifolds up to homotopy equivalence. This is based on joint work with Tyrone Cutler, Xin Fu, Jongbaek Song and Stephen Theriault."
           ]
         },
         {
           type: "Contributed Talk",
-          title: "[Contributed Talk] TBA",
+          title: "[Contributed Talk] A Decomposition of the Homology of Yang–Baxter Operators Associated with the HOMFLYPT Polynomial",
           speaker: "오진석",
           affiliation: "경북대학교",
           abstract: [
-            "TBA"
+            "Yang–Baxter operators have a rich interplay with knot theory, giving rise to knot invariants, 2- and 3-cocycle invariants, and algebraic structures such as biquandles. Their associated homology theories further provide a common framework encompassing both quandle homology and the homology of set-theoretic Yang–Baxter operators. We focus on a particular family of Yang–Baxter operators $R_{(m)}$, introduced by Vaughan Jones in the context of the HOMFLYPT polynomial. We study the homology groups $H_n(R_{(m)})$ obtained from the standard homological construction based on pre-cubic modules. A key step in our analysis is to decompose the total chain complex into a direct sum of mutually independent sub-complexes. We show that this decomposition reduces the study of the higher-order homology groups $H_n(R_{(m)})$ to the analysis of the resulting sub-complexes."
           ]
         },
        {
@@ -2192,36 +2208,68 @@
         },
        {
           type: "Contributed Talk",
-          title: "[Contributed Talk] TBA",
+          title: "[Contributed Talk] Entropy and density at infinity of minimal submanifolds",
           speaker: "이준엽",
           affiliation: "부산대학교",
           abstract: [
-            "TBA"
+            "Let $N^{n+m}$ be a Cartan-Hadamard manifold with sectional curvature bounded above by $-k_{0}^{2} \\leq 0,$, and let $M^n$ be a complete immersed minimal submanifold without boundary in $N$. For $0 \\leq k \\leq k_0$, we show that, if the heat-kernel integral based at a fixed point is finite along a sequence of times tending to infinity, then its large-time limit agrees with the density at infinity of $M$ based at that point. Moreover, if such finiteness holds at some point along a sequence of times tending to infinity, then the Colding-Minicozzi $k$-entropy of $M$ agrees with its density at infinity. We apply this result to classical minimal surfaces in $\\mathbb{H}^2 \\times \\mathbb{R}$, showing that the Colding-Minicozzi $0$-entropy is $2$ for horizontal catenoids, $k$ for minimal $k$-noids, and infinite for vertical catenoids."
           ]
         },
        {
           type: "Contributed Talk",
-          title: "[Contributed Talk] TBA",
+          title: "[Contributed Talk] Geometry of Gelfand–Zeitlin Fibers and Circle Actions on Coadjoint Orbits",
           speaker: "최진주",
           affiliation: "부산대학교",
           abstract: [
-            "TBA"
+            "A toric manifold admits a Hamiltonian torus action whose moment map image is a polytope. The moment map fibers are tori whose dimensions vary with their position in the polytope, and the freeness of circle subgroup actions may depend on the chosen level set of the moment map. Coadjoint orbits also admit Hamiltonian torus actions and Gelfand--Zeitlin systems whose images are polytopes, as in the toric case, but their fibers need not be tori. I will explain the geometry of the Gelfand--Zeitlin polytope and its fibers for coadjoint orbits. In particular, I will describe torus actions on non-toric Gelfand--Zeitlin fibers and discuss how the freeness of circle subgroup actions varies across level sets. This is joint work with Yoosik Kim."
           ]
         }
       ],
 
 
       participants: [
-        { name: "TBA", affiliation: "TBA" },
-        { name: "TBA", affiliation: "TBA" },
-        { name: "TBA", affiliation: "TBA" },
-        { name: "TBA", affiliation: "TBA" },
-        { name: "TBA", affiliation: "TBA" },
-        { name: "TBA", affiliation: "TBA" },
-        { name: "TBA", affiliation: "TBA" },
-        { name: "TBA", affiliation: "TBA" },
-        { name: "TBA", affiliation: "TBA" },
-        { name: "TBA", affiliation: "TBA" }
+        { name: "권보현", affiliation: "UNIST" },
+        { name: "김대환", affiliation: "대구대학교" },
+        { name: "김민엽", affiliation: "부산대학교" },
+        { name: "김상필", affiliation: "부산대학교" },
+        { name: "김성정", affiliation: "경북대학교" },
+        { name: "김승빈", affiliation: "부산대학교" },
+        { name: "김유식", affiliation: "부산대학교" },
+        { name: "김유정", affiliation: "부산대학교" },
+        { name: "김형준", affiliation: "경북대학교" },
+        { name: "문준석", affiliation: "경북대학교" },
+        { name: "박경동", affiliation: "경상국립대학교" },
+        { name: "박소정", affiliation: "부산대학교" },
+        { name: "박지훈", affiliation: "경북대학교" },
+        { name: "변성현", affiliation: "경북대학교" },
+        { name: "송종백", affiliation: "부산대학교" },
+        { name: "안병희", affiliation: "경북대학교" },
+        { name: "양수령", affiliation: "부경대학교" },
+        { name: "양승엽", affiliation: "경북대학교" },
+        { name: "오상록", affiliation: "부산대학교" },
+        { name: "오세민", affiliation: "경북대학교" },
+        { name: "오진석", affiliation: "경북대학교" },
+        { name: "우창화", affiliation: "부경대학교" },
+        { name: "윤홍대", affiliation: "경북대학교" },
+        { name: "이강혁", affiliation: "경상국립대학교" },
+        { name: "이동휘", affiliation: "경북대학교" },
+        { name: "이상훈", affiliation: "부산대학교" },
+        { name: "이준엽", affiliation: "부산대학교" },
+        { name: "이지현", affiliation: "IBS-CGP" },
+        { name: "이혜령", affiliation: "경북대학교" },
+        { name: "정기룡", affiliation: "경북대학교" },
+        { name: "정지원", affiliation: "부산대학교" },
+        { name: "조예원", affiliation: "경상국립대학교" },
+        { name: "조용화", affiliation: "경상국립대학교" },
+        { name: "최영준", affiliation: "부산대학교" },
+        { name: "최진주", affiliation: "부산대학교" },
+        { name: "표준철", affiliation: "부산대학교" },
+        { name: "한지영", affiliation: "부산대학교" },
+        { name: "허진영", affiliation: "경북대학교" },
+        { name: "홍연재", affiliation: "경상국립대학교" },
+        { name: "황준묵", affiliation: "기초과학연구원" },
+        { name: "Jiangxiang Gao", affiliation: "부산대학교" },
+        { name: "Tseleung So", affiliation: "부산대학교" }
       ]
     };
 
